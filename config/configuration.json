@@ -1,0 +1,44 @@
+{
+  "batch_size": 32,
+  "img_size": 128,
+  "dataset_nsamples": 150000,
+  "epochs": 50,
+  "seed": 42,
+  "test_split": 0.2,
+  "val_split": 0.4,
+
+
+  "path_nas": "/nas/softechict-nas-2/svincenzi/colorization_resnet/experiments/",
+  "dataset": "dataset/BigEarthNet_all_refactored_no_clouds_and_snow_v2_new_path.csv",
+  "log_interval": 100,
+  "log_dir": "Debug",
+  "save_checkpoint": 1,
+  "load_checkpoint": 0,
+  "path_model_dict": "/nas/softechict-nas-2/svincenzi/colorization_resnet/experiments/",
+
+  "num_workers": 4,
+  "lr": 0.01,
+  "momentum": 0.9,
+  "weight_decay": 1e-5,
+  "val_step": 10,
+  "input_channels": 9,
+  "out_channels": 2,
+
+  "optim": "SGD",
+  "scheduler": 1,
+  "sched_step": 40,
+  "sched_type": "step",
+  "sched_milestones": [10, 60, 80],
+
+
+  "loss": "L1",
+  "grad_loss": 1,
+  "weight_grad_loss": 0.01,
+  "weight_rec_loss": 10,
+
+  "backbone": 18,
+  "decoder_version": 18,
+  "pretrained": 0,
+  "augmentation": 1,
+  "dropout": 0.3
+}
