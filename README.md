@@ -5,7 +5,7 @@ This repository contains the PyTorch code for the paper:
 **<a href="https://arxiv.org/abs/2006.12119">The color out of space: learning self-supervised representations for Earth Observation imagery</a>**  
 
 ## Model architecture
-![Colorization & Multi-label classification - overview](/model/colorization_framework.png)
+![Colorization & Multi-label classification - overview](/models/colorization_framework.png)
 
 ## Prerequisites
 * Python >= 3.7
