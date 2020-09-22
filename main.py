@@ -60,7 +60,7 @@ def main(args):
 
     # DATASET
     # Torch version
-    big_earth = BigEarthDatasetTorch(csv_path=params.dataset, random_seed=params.seed, bands_indices=[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
+    big_earth = BigEarthDatasetTorch(csv_path=params.dataset, random_seed=params.seed, bands_indices=[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
                                      img_size=params.img_size, augmentation=params.augmentation, n_samples=params.dataset_nsamples)
 
     train_idx, val_idx, test_idx = big_earth.split_dataset(params.test_split, params.val_split)
