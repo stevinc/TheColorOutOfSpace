@@ -30,7 +30,7 @@ If you have any questions, please contact [stefano.vincenzi@unimore.it](mailto:s
 If you find this repository useful for your research, please cite the following paper:
 ```bibtex
   @article{vincenzi2020color,
-          title={The color out of space: learning self-supervised representations for Earth                            Observation imagery},
+  title={The color out of space: learning self-supervised representations for Earth                            Observation imagery},
   author={Vincenzi, Stefano and Porrello, Angelo and Buzzega, Pietro and Cipriano, Marco and Fronte,     Pietro and Cuccu, Roberto and Ippoliti, Carla and Conte, Annamaria and Calderara, Simone},
   journal={arXiv preprint arXiv:2006.12119},
   year={2020}
