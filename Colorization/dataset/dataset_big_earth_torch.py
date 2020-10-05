@@ -11,7 +11,7 @@ from torch.utils.data import SubsetRandomSampler, SequentialSampler
 from torch.utils.data.dataset import Dataset
 from torchvision import transforms
 
-from dataset.dataset_big_earth import Color
+from Colorization.dataset.dataset_big_earth import Color
 
 
 class BigEarthDatasetTorch(Dataset):
@@ -28,7 +28,7 @@ class BigEarthDatasetTorch(Dataset):
         # Transforms
         self.to_tensor = transforms.ToTensor()
         # Load dataset
-        self.folder_path = self.load_dataset(csv_path, random_seed, n_samples)
+        self.folder_path, self.labels_name, self.labels_class = self.load_dataset(csv_path, random_seed, n_samples)
         # Calculate len
         self.data_len = len(self.folder_path)
         print("Dataset len: ", self.data_len)
@@ -40,7 +40,7 @@ class BigEarthDatasetTorch(Dataset):
         self.augmentation = augmentation
 
     @staticmethod
-    def load_dataset(csv_path: str, random_seed: int, n_samples: int) -> list:
+    def load_dataset(csv_path: str, random_seed: int, n_samples: int) -> Tuple[list, list, list]:
         """
         function to load the dataset from the csv path
         :param csv_path: path to the csv file
@@ -62,7 +62,7 @@ class BigEarthDatasetTorch(Dataset):
         np.random.shuffle(tmp_shuffle)
         folder_path, labels_name, labels_class = zip(*tmp_shuffle)
         # for the colorization version return only the image paths
-        return folder_path
+        return folder_path, labels_name, labels_class
 
     def split_dataset(self, thresh_test: float, thresh_val: float) -> Union[Tuple[list, list, list], Tuple[list, list]]:
         """

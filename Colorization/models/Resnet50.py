@@ -2,8 +2,8 @@ import torch
 import torch.nn as nn
 from torchvision import models
 
-from models.Decoder import resnet50_decoder
-from models.Decoder import resnet18_decoder
+from Colorization.models.Decoder import resnet50_decoder
+from Colorization.models.Decoder import resnet18_decoder
 
 
 class ResNet50(nn.Module):

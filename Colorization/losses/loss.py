@@ -8,7 +8,7 @@ class Loss(nn.Module):
         super().__init__()
         self.mode = mode
         if self.mode == 'L1':
-            self.loss = nn.L1Loss(reduction='mean')
+            self.loss = nn.L1Loss(reduction='mean')  
         else:
             self.loss = nn.MSELoss(reduction='mean')
 

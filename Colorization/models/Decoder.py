@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 
-from models.Decoder_utils import conv1x1, Bottleneck, BasicBlock
+from Colorization.models.Decoder_utils import conv1x1, Bottleneck, BasicBlock
 
 
 class ResNet(nn.Module):

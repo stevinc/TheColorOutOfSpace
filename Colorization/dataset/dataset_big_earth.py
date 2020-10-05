@@ -68,7 +68,8 @@ class Color:
     def lab2rgb(L: np.ndarray, ab: np.ndarray) -> np.ndarray:
         """
        function which convert a lab image to rgb, normalized between [0-1]
-       :param rgb: input image
+       :param L: input channel
+       :param ab: input channels
        :return: converted image
        """
         L = L.cpu().numpy()
@@ -103,7 +104,7 @@ class BigEarthDataset(Dataset):
         # Transforms
         self.to_tensor = transforms.ToTensor()
         # Load dataset
-        self.folder_path = self.load_dataset(csv_path, random_seed, n_samples)
+        self.folder_path, self.labels_name, self.labels_class = self.load_dataset(csv_path, random_seed, n_samples)
         # Calculate len
         self.data_len = len(self.folder_path)
         print("Dataset len: ", self.data_len)
@@ -115,7 +116,7 @@ class BigEarthDataset(Dataset):
         self.create_torch_dataset = create_torch_dataset
 
     @staticmethod
-    def load_dataset(csv_path: str, random_seed: int, n_samples: int) -> list:
+    def load_dataset(csv_path: str, random_seed: int, n_samples: int) -> Tuple[list, list, list]:
         """
         function to load the dataset from the csv path
         :param csv_path: path to the csv file
@@ -137,7 +138,7 @@ class BigEarthDataset(Dataset):
         np.random.shuffle(tmp_shuffle)
         folder_path, labels_name, labels_class = zip(*tmp_shuffle)
         # for the colorization version return only the image paths
-        return folder_path
+        return folder_path, labels_name, labels_class
 
     def split_dataset(self, thresh_test: float, thresh_val: float) -> Union[Tuple[list, list, list], Tuple[list, list]]:
         """
