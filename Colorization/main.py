@@ -8,17 +8,17 @@ import warnings
 import numpy as np
 import torch.utils.data
 from torch import optim
-from torch.utils.data import SubsetRandomSampler, SequentialSampler
+from torch.utils.data import SubsetRandomSampler
 from torch.utils.tensorboard import SummaryWriter
 
-import utils
-from dataset.dataset_big_earth_torch import BigEarthDatasetTorch
-from job_config import set_params
-from losses.loss import Loss
-from models.Resnet18 import ResNet18
-from models.Resnet50 import ResNet50
-from test import test
-from train import train
+from Colorization import utils
+from Colorization.dataset.dataset_big_earth_torch import BigEarthDatasetTorch
+from Colorization.job_config import set_params
+from Colorization.losses.loss import Loss
+from Colorization.models.Resnet18 import ResNet18
+from Colorization.models.Resnet50 import ResNet50
+from Colorization.test import test
+from Colorization.train import train
 
 warnings.filterwarnings("ignore")
 
@@ -60,7 +60,7 @@ def main(args):
 
     # DATASET
     # Torch version
-    big_earth = BigEarthDatasetTorch(csv_path=params.dataset, random_seed=params.seed, bands_indices=[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    big_earth = BigEarthDatasetTorch(csv_path=params.dataset, random_seed=params.seed, bands_indices=[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
                                      img_size=params.img_size, augmentation=params.augmentation, n_samples=params.dataset_nsamples)
 
     train_idx, val_idx, test_idx = big_earth.split_dataset(params.test_split, params.val_split)
@@ -158,7 +158,7 @@ if __name__ == '__main__':
     # command line arguments
     parser = argparse.ArgumentParser(description='Colorization')
     parser.add_argument('--cuda', action='store_true', default=True, help='enables CUDA training')
-    parser.add_argument('--json_config_file', default='config/configuration.json', help='name of the json config file')
+    parser.add_argument('--json_config_file', default='../Colorization/config/configuration.json', help='name of the json config file')
     parser.add_argument('--id_optim', default=0, type=int, help='id_optim parameter')
     # read the args
     args = parser.parse_args()

@@ -2,7 +2,7 @@ import logging
 import time
 
 import torch
-from dataset.dataset_big_earth import Color
+from Colorization.dataset.dataset_big_earth import Color
 from tqdm import tqdm
 
 

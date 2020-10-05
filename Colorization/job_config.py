@@ -3,7 +3,7 @@ def set_params(params, id_optim):
         pass
     else:
         if id_optim == 0:
-            params.dataset_nsamples = 500000
+            params.dataset_nsamples = 5000
             params.epochs = 50
             params.seed = 42
             params.batch_size = 16

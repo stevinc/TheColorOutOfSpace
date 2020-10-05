@@ -1,0 +1,40 @@
+{
+  "log_interval": 10,
+  "path_nas": "/nas/softechict-nas-2/svincenzi/multi_label_baseline/experiments/",
+  "log_dir": "9_bands",
+  "val_step": 10,
+
+  "test_split": 0.2,
+  "val_split": 0.4,
+  "dataset": "dataset/big_earth_without_shitty_imgs_torch.csv",
+  "dataset_nsamples": 1000,
+  "bands": [1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0],
+  "quantiles": "../Colorization/dataset/quantiles_3000.json",
+  "num_workers": 4,
+
+  "pretrained": 0,
+  "resnet_version": 18,
+  "input_channels": 9,
+  "img_size": 128,
+  "out_cls": 19,
+  "batch_size": 32,
+  "epochs": 50,
+  "seed": 19,
+  "change_first_conv": 0,
+
+
+  "optim": "SGD",
+  "lr": 0.01,
+  "weight_decay": 1e-5,
+
+  "scheduler": 0,
+  "sched_step": 40,
+  "sched_type": "step",
+  "sched_milestones": [10, 60, 80],
+
+  "save_checkpoint": 2,
+  "load_checkpoint": 0,
+  "path_model_dict": "/nas/softechict-nas-2/svincenzi/multi_label_baseline/experiments/",
+  "load_checkpoint_tr": 0,
+  "path_model_dict_tr": "/nas/softechict-nas-2/svincenzi/"
+}

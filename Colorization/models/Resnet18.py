@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn
 from torchvision import models
 
-from models.Decoder import resnet18_decoder
+from Colorization.models.Decoder import resnet18_decoder
 
 
 class ResNet18(nn.Module):
