@@ -254,11 +254,19 @@ if __name__ == "__main__":
     # dataset loader
     train_loader = torch.utils.data.DataLoader(big_earth, batch_size=16,
                                                sampler=train_sampler, num_workers=4)
-    test_loader = torch.utils.data.DataLoader(big_earth, batch_size=1,
-                                              sampler=test_sampler, num_workers=0)
+    test_loader = torch.utils.data.DataLoader(big_earth, batch_size=16,
+                                              sampler=test_sampler, num_workers=4)
+    val_loader = torch.utils.data.DataLoader(big_earth, batch_size=16,
+                                              sampler=val_sampler, num_workers=4)
     start_time = time.time()
 
     for idx, (spectral_img, L, ab) in enumerate(train_loader):
+        print(idx)
+
+    for idx, (spectral_img, L, ab) in enumerate(test_loader):
+        print(idx)
+
+    for idx, (spectral_img, L, ab) in enumerate(val_loader):
         print(idx)
 
     print("time: ", time.time() - start_time)
