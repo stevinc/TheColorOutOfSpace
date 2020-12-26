@@ -12,6 +12,8 @@ from torch.utils.data.dataset import Dataset
 from torchvision import transforms
 
 from Colorization.dataset.dataset_big_earth import Color
+import albumentations as A
+from matplotlib import pyplot as plt
 
 
 class BigEarthDatasetTorch(Dataset):
@@ -78,7 +80,8 @@ class BigEarthDatasetTorch(Dataset):
         else:
             return indices[split_test:], indices[:split_test]
 
-    def split_bands(self, spectral_img: torch.tensor) -> Tuple[torch.tensor, torch.tensor]:
+    @staticmethod
+    def split_bands(spectral_img: torch.tensor) -> Tuple[torch.tensor, torch.tensor]:
         """
         function to split the bands between rgb and other bands
         :param spectral_img: complete image
@@ -91,7 +94,8 @@ class BigEarthDatasetTorch(Dataset):
         spectral_bands = torch.index_select(input=spectral_img, dim=0, index=indices)
         return spectral_bands, rgb
 
-    def augmentation_fn(self, images: torch.Tensor) -> torch.Tensor:
+    @staticmethod
+    def augmentation_fn(images: torch.Tensor) -> torch.Tensor:
         """
         function that applies data augmentation to torch image
         :param images: current image
@@ -100,6 +104,7 @@ class BigEarthDatasetTorch(Dataset):
         rnd = np.random.random_sample()
         images = torch.unsqueeze(images, dim=1)
         angle = np.random.randint(-15, 15)
+
         for id, image in enumerate(images):
             if rnd < 0.25:
                 image = TF.to_pil_image(image)
@@ -115,6 +120,26 @@ class BigEarthDatasetTorch(Dataset):
                 return images
             images[id] = TF.to_tensor(image)
         return torch.squeeze(images)
+
+    @staticmethod
+    def album_aug(images: torch.Tensor) -> torch.Tensor:
+        """
+        function that applies data augmentation using the albumentations library to speed up
+        :param images: current image
+        :return: augmented image
+        """
+        angle = np.random.randint(-15, 15)
+        transform = A.Compose([
+            A.OneOf([
+                A.Rotate(limit=angle, always_apply=False, p=0.33),
+                A.VerticalFlip(p=0.33),
+                A.HorizontalFlip(p=0.33)
+            ],
+                p=0.75)]
+        )
+        image_aug = np.transpose(images.numpy(), (1, 2, 0))
+        image_aug = transform(image=image_aug)['image']
+        return torch.squeeze(torch.from_numpy(image_aug))
 
     def __getitem__(self, index: int) -> Tuple[torch.tensor, torch.tensor, torch.tensor]:
         # obtain the right folder
@@ -151,7 +176,7 @@ if __name__ == "__main__":
     args = argparser.parse_args()
     # Dataset definition
     big_earth = BigEarthDatasetTorch(csv_path=args.csv_filename, random_seed=19,
-                                     bands_indices=[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], img_size=128,
+                                     bands_indices=[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0], img_size=128,
                                      augmentation=1, n_samples=args.n_samples)
     # dataset split
     train_idx, val_idx, test_idx = big_earth.split_dataset(0.2, 0.4)
@@ -161,12 +186,14 @@ if __name__ == "__main__":
     test_sampler = SubsetRandomSampler(test_idx)
     # dataset loader
     train_loader = torch.utils.data.DataLoader(big_earth, batch_size=16,
-                                               sampler=train_sampler, num_workers=0)
+                                               sampler=train_sampler, num_workers=4)
     test_loader = torch.utils.data.DataLoader(big_earth, batch_size=1,
-                                              sampler=test_sampler, num_workers=0)
+                                              sampler=test_sampler, num_workers=4)
     start_time = time.time()
 
-    for idx, (spectral_img, L, ab) in enumerate(train_loader):
-        print(idx)
+    runs = 5
+    for i in range(runs):
+        for idx, (spectral_img, L, ab) in enumerate(train_loader):
+            print(idx)
 
-    print("time: ", time.time() - start_time)
+    print("Mean Time over 5 runs: ", (time.time() - start_time) / runs)
