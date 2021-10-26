@@ -57,4 +57,27 @@ def _load_pickled_model(self, model_dir, model_file, model_pt_path):
     self.conf = conf
     logging.info("\nInside load_pickled_model...\n")
     return net
+```
+
+```
+def _load_pickled_model(self, model_dir, model_file, model_pt_path):
+    logger.info('\n\n----------Loading model--------')
+    logger.info('Model DIR')
+    logger.info(model_dir)
+    logger.info('Model FILE')
+    logger.info(model_file)
+    logger.info('Model PTH')
+    logger.info(model_pt_path)
+    logger.info('\n\n')
+
+    # net, conf = load_net(model_pt_path)
+    # net = torch.load()
+    self.device = torch.device('cpu')
+    net, conf = load_checkpoint(model_pt_path, self.device)
+    self.conf = conf
+    logging.info("\nInside load_pickled_model...\n")
+    return net
+ ```
+   
+ 
  
