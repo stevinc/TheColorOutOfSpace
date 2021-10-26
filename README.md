@@ -39,7 +39,7 @@ If you find this repository useful for your research, please cite the following 
   year={2020}
 }
 ```
-``
+```
 def _load_pickled_model(self, model_dir, model_file, model_pt_path):
     logger.info('\n\n----------Loading model--------')
     logger.info('Model DIR')
@@ -57,4 +57,4 @@ def _load_pickled_model(self, model_dir, model_file, model_pt_path):
     self.conf = conf
     logging.info("\nInside load_pickled_model...\n")
     return net
- ``
+ 
