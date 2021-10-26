@@ -39,22 +39,22 @@ If you find this repository useful for your research, please cite the following 
   year={2020}
 }
 ```
-```
-    def _load_pickled_model(self, model_dir, model_file, model_pt_path):
-        logger.info('\n\n----------Loading model--------')
-        logger.info('Model DIR')
-        logger.info(model_dir)
-        logger.info('Model FILE')
-        logger.info(model_file)
-        logger.info('Model PTH')
-        logger.info(model_pt_path)
-        logger.info('\n\n')
+``
+def _load_pickled_model(self, model_dir, model_file, model_pt_path):
+    logger.info('\n\n----------Loading model--------')
+    logger.info('Model DIR')
+    logger.info(model_dir)
+    logger.info('Model FILE')
+    logger.info(model_file)
+    logger.info('Model PTH')
+    logger.info(model_pt_path)
+    logger.info('\n\n')
 
-        # net, conf = load_net(model_pt_path)
-        # net = torch.load()
-        self.device = torch.device('cpu')
-        net, conf = load_checkpoint(model_pt_path, self.device)
-        self.conf = conf
-        logging.info("\nInside load_pickled_model...\n")
-        return net
-        ```
+    # net, conf = load_net(model_pt_path)
+    # net = torch.load()
+    self.device = torch.device('cpu')
+    net, conf = load_checkpoint(model_pt_path, self.device)
+    self.conf = conf
+    logging.info("\nInside load_pickled_model...\n")
+    return net
+ ``
